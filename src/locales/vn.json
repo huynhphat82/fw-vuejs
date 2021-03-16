@@ -1,3 +1,19 @@
 {
-  "name": "Phát"
+  "name": "Phát",
+  "common": {
+    "hello": "{msg} thế giới {year}",
+    "appname": "Ứng dụng vuejs thử nghiệm",
+    "yes": "Đồng ý",
+    "no": "Không"
+  },
+  "dialog": {
+    "title": "Màn hình thoát",
+    "text": "Bạn thật sự muốn tắt @:common.appname?",
+    "button-1": "@:common.yes",
+    "button-2": "@:common.no"
+  },
+  "validations": {
+    "required": "{_field_} không được để trống",
+    "secret": "{_field_} không đúng"
+  }
 }

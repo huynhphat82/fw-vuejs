@@ -4,9 +4,9 @@ import Vuex from 'vuex';
 import { i18n } from '../globals';
 import { product } from './modules';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   state: {
     lang: 'en'
   },
@@ -32,4 +32,6 @@ export default new Vuex.Store({
       return state.lang + getters.currentLang + id;
     }
   }
-})
+});
+
+export default store;

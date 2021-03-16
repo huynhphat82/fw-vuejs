@@ -1,23 +1,24 @@
 import { extend } from 'vee-validate';
 import * as rules from 'vee-validate/dist/rules';
 import { messages } from 'vee-validate/dist/locale/en.json';
+import { H } from '../helpers';
 
 // Load built-in rules
-Object.keys(rules).forEach(rule => extend(rule, { ...rules[rule], message: messages[rule] }));
+// Object.keys(rules).forEach(rule => extend(rule, { ...rules[rule], messages[rule]));
+// use message as function for: when langulage changes, the message was also changed
+Object.keys(rules).forEach(rule => extend(rule, { ...rules[rule], message: (_field_, placeholders) => {
+  return H.__(`validations.${rule}`, { _field_, ...placeholders });
+} }));
 
 // Define a new rule
 extend('secret', {
   validate: value => {
     return value === 'secret@gmail.com';
   },
-  message: 'The {_field_} field is incorrect'
-});
-
-extend('required', {
-  validate: value => {
-    return !!value;
-  },
-  message: 'The {_field_} field is reuired'
+  // use function for when langulage changes, the message was also changed
+  message: (_field_, placeholders) => {
+    return H.__('validations.secret', { _field_ });
+  }
 });
 
 extend('min', {

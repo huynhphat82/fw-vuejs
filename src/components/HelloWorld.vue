@@ -46,29 +46,6 @@
 
     <div v-on:click="globalHelper">Click me 1</div>
     <div v-on:click="globalFn">Click me 2</div>
-
-    <validator vid="required|email" name="E-mail Address" rules="secret" v-slot="{ errors }">
-      <label>{{ trans('name') }}</label>
-      <label>{{ t('common.yes') }}</label>
-      <label>{{ __('common.no') }}</label>
-      <input name="email" type="text" v-model="email">
-      <span>{{ errors[0] }}</span>
-    </validator>
-
-    <validator rules="required|password:@confirm" v-slot="{ errors }">
-      <input type="password" v-model="password">
-      <span>{{ errors[0] }}</span>
-    </validator>
-
-    <validator name="confirm" rules="required" v-slot="{ errors }">
-      <input type="password" v-model="confirmation">
-      <span>{{ errors[0] }}</span>
-    </validator>
-
-    <validator name="testing" rules="required" v-slot="{ errors }">
-      <input type="text">
-      <span>{{ errors[0] }}</span>
-    </validator>
   </div>
 </template>
 
@@ -89,10 +66,6 @@ export default {
         value: 'en'
       }
     ],
-    email: null,
-    confirmation: null,
-    password: null,
-    testing: null
   }),
   methods: {
     callSetLangActions (event) {

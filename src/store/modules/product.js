@@ -1,4 +1,4 @@
-import shop from "./api";
+import shop from './api';
 
 const SET_PRODUCTS = 'setProducts';
 const DECREMENT_PRODUCT_INVENTORY = 'decrementProductInventory';
@@ -15,7 +15,7 @@ const getters = {}
 const actions = {
   getAllProducts: ({ commit }) => {
     shop.getProducts(products => {
-      commit(SET_PRODUCTS, products)
+      commit(SET_PRODUCTS, products);
     });
   }
 };
