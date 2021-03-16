@@ -1,9 +1,8 @@
-import Vue from "vue";
+import Vue from 'vue';
+import Vuex from 'vuex';
 
-import Vuex from "vuex";
-
-import i18n from "../i18n";
-import { product } from "./modules";
+import { i18n } from '../globals';
+import { product } from './modules';
 
 Vue.use(Vuex)
 
@@ -23,7 +22,7 @@ export default new Vuex.Store({
     }
   },
   modules: {
-    product,
+    product
   },
   getters: {
     currentLang: (state, getters) => { // this.$store.getters.currentLang
