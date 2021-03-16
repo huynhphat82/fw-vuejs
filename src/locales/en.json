@@ -1,0 +1,15 @@
+{
+  "name": "Phat",
+  "common": {
+    "hello": "{msg} world {year}",
+    "appname": "Vue-Demo",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "dialog": {
+    "title": "Exit screen",
+    "text": "Do you really want to exit @:common.appname ?",
+    "button-1": "@:common.yes",
+    "button-2": "@:common.no"
+  }
+}
