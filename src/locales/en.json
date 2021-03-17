@@ -13,7 +13,24 @@
     "button-2": "@:common.no"
   },
   "validations": {
-    "required": "{_field_} is required",
-    "secret": "{_field_} is incorrect"
+    "messages": {
+      "required": "{_field_} is required",
+      "secret": "{_field_} is incorrect",
+      "test": "{_field_} is test",
+      "betweening": "{_field_} field must have a value between {min} and {max}"
+    },
+    "names": {
+      "email": "Email Address xxxxxxxxxx",
+      "password": "Your password",
+      "betweening": "Period"
+    },
+    "fields": {
+      "email": {
+        "requireds": "{_field_} is required ================"
+      },
+      "betweening": {
+        "betweening": "{_field_} field must have a value from {min} to {max}"
+      }
+    }
   }
 }

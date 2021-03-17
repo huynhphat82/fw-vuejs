@@ -10,33 +10,60 @@
     </div>
 
     <h3>Rules: [required|secret]</h3>
-    <validator vid="email" name="E-mail Address" rules="required|secret" v-slot="{ errors }">
+    <validator rules="required" v-slot="{ errors }">
       <div>
-        <input name="email" type="text" v-model="email">
+        <input name="email" type="password" v-model="email">
         <br/>
         <span class="error">{{ errors[0] }}</span>
       </div>
     </validator>
 
-    <h3>Rules: [required|secret]</h3>
-    <validator rules="required|password:@confirm" v-slot="{ errors }">
+    <h3>Rules: [password]</h3>
+    <validator vid="password" rules="required" v-slot="{ errors }">
       <div>
-        <input type="password" v-model="password">
+        <input name="password" type="password" v-model="password">
         <br/>
         <span class="error">{{ errors[0] }}</span>
       </div>
     </validator>
 
-    <h3>Rules: [required]</h3>
-    <validator name="confirm" rules="required" v-slot="{ errors }">
+    <h3>Rules: [test]</h3>
+    <validator rules="test" v-slot="{ errors }">
       <div>
-        <input type="password" v-model="confirmation">
+        <input name="confirmation" type="text" v-model="confirmation">
         <br/>
         <span class="error">{{ errors[0] }}</span>
       </div>
     </validator>
 
-    <h3>Rules: [required]</h3>
+    <h3>Rules: [betweening]</h3>
+    <validator rules="betweening:1,6" v-slot="{ errors }">
+      <div>
+        <input name="betweening" type="text" v-model="confirmation">
+        <br/>
+        <span class="error">{{ errors[0] }}</span>
+      </div>
+    </validator>
+
+    <h3>Rules: [required][model-less]</h3>
+    <validator rules="required|image" v-slot="{ validate, errors }">
+      <div>
+        <input name="modelless" type="file" @change="validate">
+        <br/>
+        <span class="error">{{ errors[0] }}</span>
+      </div>
+    </validator>
+
+    <h3>Dynamic Rules: [required]</h3>
+    <validator :rules="`${isRequired ? 'required' : ''}`" v-slot="{ errors }">
+      <div>
+        <input name="isRequired" type="text" v-model="isRequired">
+        <br/>
+        <span class="error">{{ errors[0] }}</span>
+      </div>
+    </validator>
+
+    <!-- <h3>Rules: [required]</h3>
     <validator name="testing" rules="required" v-slot="{ errors }">
       <div>
         <input type="text">
@@ -52,7 +79,7 @@
         <br/>
         <span class="error">{{ errors[0] }}</span>
       </div>
-    </validator>
+    </validator> -->
   </div>
 </template>
 
@@ -66,6 +93,7 @@ export default {
     password: null,
     testing: null,
     image: 'image',
+    isRequired: true,
   }),
 }
 </script>

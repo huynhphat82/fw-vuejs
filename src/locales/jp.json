@@ -13,7 +13,18 @@
     "button-2": "@:common.no"
   },
   "validations": {
-    "required": "{_field_} is required",
-    "secret": "{_field_} is incorrect"
+    "messages": {
+      "required": "{_field_} is required",
+      "secret": "{_field_} is incorrect"
+    },
+    "names": {
+      "email": "Email Address xxxxxxxxxx",
+      "password": "Your password"
+    },
+    "fields": {
+      "email": {
+        "required": "{_field_} is required"
+      }
+    }
   }
 }
