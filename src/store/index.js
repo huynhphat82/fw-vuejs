@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import { i18n } from '../services';
 
-import { i18n } from '../globals';
 import { product } from './modules';
 
 Vue.use(Vuex);

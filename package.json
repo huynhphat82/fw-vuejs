@@ -14,7 +14,9 @@
     "preinstall": "command -v link-module-alias && link-module-alias clean || true"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "lodash": "^4.17.21",
     "vee-validate": "^3.4.5",
     "vue": "^2.6.11",
     "vue-i18n": "^8.24.1",

@@ -1,6 +1,6 @@
 import { configure, extend } from 'vee-validate';
 import * as rules from 'vee-validate/dist/rules';
-import { H } from '../helpers';
+import { H } from '../services';
 
 /**
  * Resolve locale message

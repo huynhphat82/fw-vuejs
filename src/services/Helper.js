@@ -1,4 +1,4 @@
-import { i18n } from "../globals";
+import i18n from './i18n';
 
 const Helper = {};
 

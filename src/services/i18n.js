@@ -35,7 +35,7 @@ const localesValidation = {
  *
  * @return json
  */
-function loadLocaleMessages () {
+function getLocaleMessages () {
   const locales = require.context('../locales', true, /[A-Za-z0-9-_,\s]+\.json$/i);
   return locales.keys().reduce((messages, key) => {
     const matched = key.match(/([A-Za-z0-9-_]+)\./i);
@@ -60,8 +60,10 @@ function loadLocaleMessages () {
   }, {});
 }
 
-export default new VueI18n({
+const i18n = new VueI18n({
   locale: process.env.VUE_APP_I18N_LOCALE || 'en',
   fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || 'en',
-  messages: loadLocaleMessages(),
+  messages: getLocaleMessages(),
 });
+
+export default i18n;

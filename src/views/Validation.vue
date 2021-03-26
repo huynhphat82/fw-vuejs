@@ -95,5 +95,8 @@ export default {
     image: 'image',
     isRequired: true,
   }),
+  created() {
+
+  }
 }
 </script>

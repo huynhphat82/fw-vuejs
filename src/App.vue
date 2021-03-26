@@ -5,7 +5,9 @@
       <router-link to="/validation">Validation</router-link> |
       <router-link to="/about">About</router-link>
     </div>
-    <router-view/>
+    <modal />
+    <spinner />
+    <router-view />
   </div>
 </template>
 

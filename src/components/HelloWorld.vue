@@ -6,7 +6,7 @@
       check out the
       <a href="https://cli.vuejs.org" target="_blank" rel="noopener" class="warn">vue-cli documentation</a>.
     </p>
-    <h3>Installed CLI Plugins</h3>
+    <h3 v-color-text="'green'">Installed CLI Plugins</h3>
     <ul>
       <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
       <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-router" target="_blank" rel="noopener">router</a></li>
@@ -15,7 +15,7 @@
       <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-unit-mocha" target="_blank" rel="noopener">unit-mocha</a></li>
       <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-e2e-cypress" target="_blank" rel="noopener">e2e-cypress</a></li>
     </ul>
-    <h3 class="red">Essential Links</h3>
+    <h3 class="red" v-color:bg="'green'">Essential Links</h3>
     <ul>
       <li><a href="https://vuejs.org" target="_blank" rel="noopener" class="blue">Core Docs</a></li>
       <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
@@ -32,6 +32,12 @@
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
     </ul>
 
+    <signup />
+
+    <div>
+      {{ uppercase | uppercase }}
+    </div>
+
     <div
       class="item"
       v-for="lang in optionLangs"
@@ -46,14 +52,50 @@
 
     <div v-on:click="globalHelper">Click me 1</div>
     <div v-on:click="globalFn">Click me 2</div>
+
+    <error :errors="[1234]" />
+
+    <div>
+      <h3>Modal</h3>
+      <button @click="showModal">Show modal</button>
+    </div>
+
+    <div>
+      <h3>Spinner</h3>
+      <button @click="showSpinner">Show spinner</button>
+      <button @click="hideSpinner">Hide spinner</button>
+    </div>
+
+    <div>
+      <h3>Loader</h3>
+      <loader />
+      <button @click="showLoader">Show loader</button>
+      <button @click="hideLoader">Hide loader</button>
+    </div>
+
   </div>
 </template>
 
 <script>
+import { H, __ } from '../services';
 export default {
   name: 'HelloWorld',
   props: {
     msg: String,
+  },
+  async created() {
+    console.log('$http1 => ', this.$http);
+    // this.$http.get('https://jsonplaceholder.typicode.com/users').then((response, error) => {
+    //   console.log('response => ', response)
+    //   console.log('error => ', error)
+    // })
+    let response = await this.$http.get('https://jsonplaceholder.typicode.com/users');
+    console.log('response => ', response);
+  },
+  mounted() {
+    console.log('$http2 => ', this.$httpAnother);
+    console.log('H => ', H)
+    console.log('H => ', this.$t, this.t, this.trans, this.__)
   },
   data: () => ({
     optionLangs: [
@@ -66,10 +108,39 @@ export default {
         value: 'en'
       }
     ],
+    uppercase: 'Convert to captitalize',
   }),
   methods: {
     callSetLangActions (event) {
       this.$store.dispatch('setLang', event.target.getAttribute('value'))
+    },
+    showModal() {
+      const params = {
+        title: "Test!",
+        message: "test test test",
+        onConfirm: () => {
+          return this.alertFunc();
+        }
+      };
+       this.$modal.show(params);
+    },
+    alertFunc() {
+      alert('Hello!');
+    },
+    showSpinner() {
+      this.$spinner.show();
+      setTimeout(() => {
+        this.hideSpinner();
+      }, 5000)
+    },
+    hideSpinner() {
+      this.$spinner.hide();
+    },
+    showLoader() {
+      this.$loader.show({ message: 'Loading...', style: { color: 'red' }, showMessage: false });
+    },
+    hideLoader() {
+      this.$loader.hide();
     }
   }
 }
