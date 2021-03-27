@@ -61,7 +61,7 @@
     </div>
 
     <div>
-      <h3>Spinner</h3>
+      <h3 class="warn">Spinner</h3>
       <button @click="showSpinner">Show spinner</button>
       <button @click="hideSpinner">Hide spinner</button>
     </div>
@@ -77,7 +77,10 @@
 </template>
 
 <script>
-import { H, __ } from '../services';
+import { H, withLoading, __ } from '../services';
+import { Http } from '@services';
+import { SET_LANG } from '@store';
+
 export default {
   name: 'HelloWorld',
   props: {
@@ -89,13 +92,48 @@ export default {
     //   console.log('response => ', response)
     //   console.log('error => ', error)
     // })
-    let response = await this.$http.get('https://jsonplaceholder.typicode.com/users');
-    console.log('response => ', response);
+    // let response = await this.$http.get('https://jsonplaceholder.typicode.com/users');
+    // console.log('response => ', response);
+    // console.log('api1 => ', await this.$api.getUsers());
+    // console.log('api2 => ', await this.$api.getUserDetail(3));
+    // console.log('api => get posts => ', await this.$api.getPosts());
+    // console.log('api => create post =>', await this.$api.createPost({
+    //   title: 'Phat',
+    //   body: 'This is Phat',
+    //   userId: 1,
+    // }));
+
+    // let post = await this.$api.getPost(1);
+    // console.log('api => post (id=1) => ', post);
+
+    // post = post.data;
+    // post.title = 'This title was changed!';
+    // console.log('api => update post (id=1) [put] => ', await this.$api.updatePost(post));
+    // console.log('api => update post (id=1) [patch] => ', await this.$api.updatePost(post.id, {
+    //   title: 'This title was changed by patch method',
+    // }));
+
+    // console.log('api => delete post (id=1) => ', await this.$api.deletePost(post.id));
+
+    withLoading(async stopLoading => {
+      let post = await this.$api.getPost(1, false);
+      console.log('post => ', post);
+      let user = await this.$api.getUserDetail(post.data.id, false)
+      console.log('user => ', user);
+      let result = await this.$api.createPost({
+        title: 'Phat',
+        body: 'This is Phat',
+        userId: user.data.id,
+      });
+      console.log('create post => ', result);
+      stopLoading();
+    })
   },
   mounted() {
     console.log('$http2 => ', this.$httpAnother);
     console.log('H => ', H)
     console.log('H => ', this.$t, this.t, this.trans, this.__)
+    console.log('Http => ', Http)
   },
   data: () => ({
     optionLangs: [
@@ -112,7 +150,11 @@ export default {
   }),
   methods: {
     callSetLangActions (event) {
-      this.$store.dispatch('setLang', event.target.getAttribute('value'))
+      // this.$store.dispatch(SET_LANG, event.target.getAttribute('value'))
+      console.log('lang1 => ', this.$lang);
+      // this.$setLang(event.target.getAttribute('value'));
+      this.$lang = event.target.getAttribute('value');
+      console.log('lang2 => ', this.$lang);
     },
     showModal() {
       const params = {
@@ -166,4 +208,5 @@ a {
 .blue {
   color: $primary;
 }
+
 </style>

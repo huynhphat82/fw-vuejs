@@ -4,12 +4,11 @@ import camelCase from 'lodash/camelCase';
 import { ValidationObserver, ValidationProvider } from 'vee-validate';
 
 import { GlobalMixin, GlobalPlugin } from './commons';
+import { ModalLoadSpinErrorPlugin } from './commons/plugins';
 
 import './commons/directives/index';
 import './commons/pipes/index';
-import { ModalPlugin } from './commons/plugins';
-import { ModalLoadSpinErrorPlugin } from './commons/plugins';
-
+import '@validations/index';
 
 // Register components automatically
 const registerComponents = () => {

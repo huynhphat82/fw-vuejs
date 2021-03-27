@@ -20,7 +20,7 @@ export default {
       message: '',
       visible: false,
       onConfirm: null,
-    }
+    };
   },
   methods: {
     hide() {
@@ -43,7 +43,7 @@ export default {
     // Register / listening 'show' event
     this.$modal.EventBus.$on('show', params => {
       this.show(params);
-    })
+    });
   }
 };
 </script>

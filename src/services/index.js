@@ -1,4 +1,4 @@
-import Http from './Http';
+import Http, { withLoading } from './Http';
 import AnotherHttp from './AnotherHttp';
 import i18n from './i18n';
 import Helper from './Helper';
@@ -15,4 +15,5 @@ export {
   Helper,
   H,
   __,
+  withLoading,
 };

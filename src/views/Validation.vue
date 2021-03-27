@@ -10,7 +10,7 @@
     </div>
 
     <h3>Rules: [required|secret]</h3>
-    <validator rules="required" v-slot="{ errors }">
+    <validator rules="required|secret" v-slot="{ errors }">
       <div>
         <input name="email" type="password" v-model="email">
         <br/>

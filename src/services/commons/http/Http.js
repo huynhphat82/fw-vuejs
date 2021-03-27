@@ -59,30 +59,47 @@ export default class Http {
     return this;
   }
 
-  request = async (url, bodyParams = {}, queryParams = {}, method = 'GET') => {
+  /**
+   * Request
+   *
+   * @param string url
+   * @param json|object configs  [{
+   *    url: <string>,
+   *    params: <json>,
+   *    data: <json>,
+   *    method: <GET|POST|PUT|PATCH|DELETE|HEAD>,
+   * }]
+   * @return json|object
+   */
+  request = async (url, configs = {}) => {
     try {
-      let responseResult = await this.instance.request(this._getConfig(url, bodyParams, queryParams, method));
+      let responseResult = await this.instance.request(this._getConfig({ ...configs, url }));
       return Response.success(responseResult.data, responseResult.status);
     } catch (e) {
-        return (e.response)
-                ? Response.error(e.response.data, e.response.status)
-                : Response.error(e.message, 442);
+      return (e.response)
+              ? Response.error(e.response.data, e.response.status)
+              : Response.error(e.message, 442);
     }
   };
 
-  get    = (url, query = {}) => this.request(url, {}, query);
-  post   = (url, body = {}, query = {}) => this.request(url, body, query, 'POST');
-  put    = (url, body = {}, query = {}) => this.request(url, body, query, 'PUT');
-  patch  = (url, body = {}, query = {}) => this.request(url, body, query, 'PATCH');
-  delete = (url, body = {}, query = {}) => this.request(url, body, query, 'DELETE');
-  head   = (url, body = {}, query = {}) => this.request(url, body, query, 'HEAD');
+  get    = (url, configs = {}) => this.request(url, { ...configs, method: 'GET' });
+  post   = (url, configs = {}) => this.request(url, { ...configs, method: 'POST' });
+  put    = (url, configs = {}) => this.request(url, { ...configs, method: 'PUT' });
+  patch  = (url, configs = {}) => this.request(url, { ...configs, method: 'PATCH' });
+  delete = (url, configs = {}) => this.request(url, { ...configs, method: 'DELETE' });
+  head   = (url, configs = {}) => this.request(url, { ...configs, method: 'HEAD' });
 
-  _getConfig = (url, bodyParams, queryParams, method) => {
-    let defaultConfigs = this._defaultConfigs(url, bodyParams, queryParams, method);
-    if (Object.keys(this.options).length > 0) {
-      return { ...defaultConfigs, ...this.options };
+  _getConfig = (configs = {}) => {
+    if (configs.hasOwnProperty('headers')) {
+      configs.headers = { ...this.headers, ...configs.headers };
     }
-    return defaultConfigs;
+    if (configs.hasOwnProperty('data') && typeof configs.data !== 'string') { // bodyParams
+      configs.data = JSON.stringify(configs.data);
+    }
+    if (configs.hasOwnProperty('params') && typeof configs.params !== 'string') { // queryParams
+      configs.params = JSON.stringify(configs.params);
+    }
+    return { ...this._defaultConfigs(configs), ...(this.options || {}) };
   }
 
   _resolveOptions = (options) => {
@@ -108,11 +125,11 @@ export default class Http {
     'baseURL', 'baseUrl', 'timeout', 'withCredentials', 'auth', 'maxRedirects', 'responseType'
   ]);
 
-  _defaultConfigs = (url, bodyParams = {}, queryParams = {}, method = 'GET') => ({
+  _defaultConfigs = (configs = {}) => ({
     // url for the request
-    url: url,
+    url: '',
     // request method
-    method: method, // default
+    method: 'GET', // default
     // base url will be prepended to `url` unless `url` is absolute
     baseURL: '',
     // `transformRequest` allows changes to the request data before it is sent to the server
@@ -130,7 +147,7 @@ export default class Http {
     // `headers` are custom headers to be sent
     headers: this.headers,
     // `params` are the URL parameters to be sent with the request
-    params: queryParams,
+    params: JSON.stringify({}), // queryParams
     // `paramsSerializer` is an optional function in charge of serializing `params`
     // paramsSerializer: function(params) {
     //     return Qs.stringify(params, {arrayFormat: 'brackets'})
@@ -141,7 +158,7 @@ export default class Http {
     // - string, plain object, ArrayBuffer, ArrayBufferView, URLSearchParams
     // - Browser only: FormData, File, Blob
     // - Node only: Stream
-    data: bodyParams,
+    data: JSON.stringify({}), // bodyParams
     // `timeout` specifies the number of milliseconds before the request times out.
     timeout: 60000,
     // `withCredentials` indicates whether or not cross-site Access-Control requests
@@ -173,5 +190,6 @@ export default class Http {
     // `maxRedirects` defines the maximum number of redirects to follow in node.js.
     // If set to 0, no redirects will be followed.
     maxRedirects: 5, // default
+    ...configs,
   });
 }

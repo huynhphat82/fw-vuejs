@@ -6,19 +6,21 @@ import { product } from './modules';
 
 Vue.use(Vuex);
 
+export const SET_LANG = 'setLang';
+
 const store = new Vuex.Store({
   state: {
     lang: 'en'
   },
   mutations: {
-    SET_LANG: (state, payload) => {
+    [SET_LANG]: (state, payload) => {
       state.lang = payload;
       i18n.locale = payload;
     }
   },
   actions: {
-    setLang: ({ commit }, payload) => {
-      commit('SET_LANG', payload);
+    [SET_LANG]: ({ commit }, payload) => {
+      commit(SET_LANG, payload);
     }
   },
   modules: {
