@@ -8,7 +8,7 @@
         <button class="modal-button" @click="confirm">Yes</button>
       </div>
     </div>
-    <div class="modal-backdrop" @click="hide"></div>
+    <div class="modal-backdrop" @click="close"></div>
   </div>
 </template>
 
@@ -25,18 +25,30 @@ export default {
   methods: {
     hide() {
       this.visible = false;
+      if (typeof this.handleCancel === 'function') {
+        this.handleCancel();
+      }
+    },
+    close() {
+      this.visible = false;
+      if (typeof this.handleClose === 'function') {
+        this.handleClose();
+      }
     },
     confirm() {
-      if (typeof this.onConfirm === 'function') {
-        this.onConfirm();
+      if (typeof this.handleOk === 'function') {
+        this.handleOk();
       }
       this.hide();
     },
     show(params) {
+      const { title, message, handleOk, handleClose, handleCancel } = params || {};
       this.visible = true;
-      this.title = params.title || '';
-      this.message = params.message || '';
-      this.onConfirm = params.onConfirm || null;
+      this.title = title || 'Confirmation';
+      this.message = message || '';
+      this.handleOk = handleOk || null;
+      this.handleCancel = handleCancel || null;
+      this.handleClose = handleClose || null;
     }
   },
   beforeMount() {

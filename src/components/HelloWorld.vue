@@ -56,6 +56,10 @@
     <error :errors="[1234]" />
 
     <div>
+      <button @click="goValidation">Go Validation</button>
+    </div>
+
+    <div>
       <h3>Modal</h3>
       <button @click="showModal">Show modal</button>
     </div>
@@ -80,6 +84,7 @@
 import { H, withLoading, __ } from '../services';
 import { Http } from '@services';
 import { SET_LANG } from '@store';
+import { ModalLoadSpinErrorPlugin } from '~/services/commons/plugins';
 
 export default {
   name: 'HelloWorld',
@@ -190,6 +195,21 @@ export default {
     },
     hideLoader() {
       this.$loader.hide();
+    },
+    goValidation() {
+      console.log(this.$router)
+      this.$route.params.isEditing = true;
+      this.$route.params.confirmBeforeLeave = function (next) {
+        this.$modal.show({
+          title: 'Confirmation',
+          message: 'Do you want to update berfore leaving?',
+          handleOk: () => next(),
+          handleCancel: () => next(),
+          handleClose: () => next(false)
+        });
+      }.bind(this);
+      // this.$router.push({ name: 'validation'});
+      this.navigate({ name: 'validation'});
     }
   }
 }

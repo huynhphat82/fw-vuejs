@@ -12,4 +12,10 @@ Log.log = (...args) => log('log', ...args);
 Log.warn = (...args) => log('warn', ...args);
 Log.error = (...args) => log('error', ...args);
 
+Log.group = (label = '', callback = () => {}) => {
+  log('group', label);
+  callback();
+  log('groupEnd');
+};
+
 export default Log;

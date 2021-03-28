@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import { AnotherHttp, Http, i18n } from '../services';
 
 import { product } from './modules';
+import logger from './logger';
 
 Vue.use(Vuex);
 
@@ -15,8 +16,13 @@ const setLangHttpHeaders = (lang) => {
 }
 
 const store = new Vuex.Store({
+  plugins: process.env.NODE_ENV !== 'production' ? [logger] : [],
   state: {
-    lang: 'en'
+    lang: 'en',
+    user: {
+      isLoggedIn: false,
+      isSubscribed: false,
+    },
   },
   mutations: {
     [SET_LANG]: (state, payload) => {
@@ -39,7 +45,10 @@ const store = new Vuex.Store({
     },
     f1: (state, getters) => id => { // this.$store.getters.f1(id = 1)
       return state.lang + getters.currentLang + id;
-    }
+    },
+    auth(state) {
+      return state.user;
+    },
   }
 });
 
