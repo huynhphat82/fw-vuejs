@@ -1,12 +1,18 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { i18n } from '../services';
+import { AnotherHttp, Http, i18n } from '../services';
 
 import { product } from './modules';
 
 Vue.use(Vuex);
 
 export const SET_LANG = 'setLang';
+
+// Set locale for http headers
+const setLangHttpHeaders = (lang) => {
+  Http.setHeaders({ Locale: lang });
+  AnotherHttp.setHeaders({ Locale: lang });
+}
 
 const store = new Vuex.Store({
   state: {
@@ -16,6 +22,7 @@ const store = new Vuex.Store({
     [SET_LANG]: (state, payload) => {
       state.lang = payload;
       i18n.locale = payload;
+      setLangHttpHeaders(payload);
     }
   },
   actions: {

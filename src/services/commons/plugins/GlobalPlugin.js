@@ -2,6 +2,7 @@ import store, { SET_LANG } from '~/store';
 import AnotherHttp from '../../AnotherHttp';
 import Http from '../../Http';
 import ApiService from './../../api/ApiService';
+import ApiAnotherService from './../../api/ApiAnotherService';
 
 export const GlobalPlugin = {
   install(Vue, options) {
@@ -28,5 +29,6 @@ export const GlobalPlugin = {
     Vue.prototype.$http = Http;
     Vue.prototype.$httpAnother = AnotherHttp;
     Vue.prototype.$api = ApiService;
+    Vue.prototype.$apiAnother = ApiAnotherService;
   },
 };

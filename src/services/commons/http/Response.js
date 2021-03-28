@@ -1,15 +1,15 @@
 import { OK } from "./HTTP_CODE_STATUS";
 
-const json = (message, code = OK, success = true) => ({
-  success: success,
-  status_code: code,
-  //message_type: 'SUCCESS', // 'WARNING' | 'FAILED'
-  [success ? 'data' : 'error']: message
+const json = (message, status = OK, success = true, statusText = null) => ({
+  success,
+  status,
+  [success ? 'data' : 'error']: message,
+  // ...(statusText ? { statusText } : {}),
 });
 
 const Response = {
-  success: (message, code) => json(message, code),
-  error: (message, code) => json(message, code, false)
+  success: (message, code, statusText) => json(message, code, true, statusText),
+  error: (message, code, statusText) => json(message, code, false, statusText),
 };
 
 export default Response;

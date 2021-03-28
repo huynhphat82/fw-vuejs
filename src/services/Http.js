@@ -1,38 +1,34 @@
 import { HTTP } from './commons';
 import { OK } from './commons/http/HTTP_CODE_STATUS';
 import { API_URL } from './../router/ENDPOINT';
-import { ModalLoadSpinErrorPlugin } from './commons/plugins/ModalLoadSpinErrorPlugin';
+import { hideSpinner, showSpinner } from './GlobalService';
+import store from '~/store';
+import Log from './Log';
 
 const Http = new HTTP(API_URL);
 
-const _showSpinner = () => ModalLoadSpinErrorPlugin.EventBus.$emit('show-spin');
-const _hideSpinner = () => ModalLoadSpinErrorPlugin.EventBus.$emit('hide-spin');
-
-export const withLoading = (callback = () => {}) => {
-  _showSpinner();
-  callback(_hideSpinner);
-};
-
 Http.setHeaders({
   'X-Requested-With': 'XMLHttpRequest',
+  'Locale': store.state.lang,
 });
 
 Http.interceptors([
   config => {
-    console.log('[interceptors][req] => ', '[' + config?.method + ']', config?.url, config);
+    // console.log('[Http][interceptors][req] => ', '[' + config?.method + ']', config?.url, config);
+    Log.info('[Http][interceptors][req] => ', '[' + config?.method + ']', config?.url, config);
     if (config?.showSpinner === true) {
-      _showSpinner();
+      showSpinner();
     }
     return config;
   },
   err => {
-    _hideSpinner();
-    console.warn('[interceptors][req][error] => ', err);
+    hideSpinner();
+    Log.warn('[Http][interceptors][req][error] => ', err);
     return Promise.reject(err);
   }
 ], [
   response => {
-    console.log('[interceptors][res] => ', '[' + response?.config?.method + ']', response?.config?.url, response);
+    Log.info('[Http][interceptors][res] => ', '[' + response?.config?.method + ']', response?.config?.url, response);
     switch (response.status) {
       case OK:
         break;
@@ -40,13 +36,13 @@ Http.interceptors([
         break;
     }
     if (response?.config?.showSpinner === true) {
-      _hideSpinner();
+      hideSpinner();
     }
     return response;
   },
   err => {
-    _hideSpinner();
-    console.warn('[interceptors][res][error] => ', err);
+    hideSpinner();
+    Log.warn('[Http][interceptors][res][error] => ', err);
     return Promise.reject(err);
   }
 ]);

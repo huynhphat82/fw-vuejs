@@ -1,19 +1,21 @@
-import Http, { withLoading } from './Http';
+import Http from './Http';
 import AnotherHttp from './AnotherHttp';
 import i18n from './i18n';
 import Helper from './Helper';
-import { registerGlobal } from './GlobalService';
+import Log from './Log';
+import { registerGlobal, withLoading } from './GlobalService';
 
 const __ = Helper;
 const H = Helper;
 
 export {
+  withLoading,
   registerGlobal,
-  Http,
   AnotherHttp,
-  i18n,
   Helper,
+  Http,
+  Log,
+  i18n,
   H,
   __,
-  withLoading,
 };

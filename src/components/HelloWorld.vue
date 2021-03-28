@@ -87,7 +87,7 @@ export default {
     msg: String,
   },
   async created() {
-    console.log('$http1 => ', this.$http);
+    // console.log('$http1 => ', this.$http);
     // this.$http.get('https://jsonplaceholder.typicode.com/users').then((response, error) => {
     //   console.log('response => ', response)
     //   console.log('error => ', error)
@@ -128,6 +128,10 @@ export default {
       console.log('create post => ', result);
       stopLoading();
     })
+
+    let users = await this.$apiAnother.getUsers();
+
+    console.log('users => ', users)
   },
   mounted() {
     console.log('$http2 => ', this.$httpAnother);
@@ -149,12 +153,15 @@ export default {
     uppercase: 'Convert to captitalize',
   }),
   methods: {
-    callSetLangActions (event) {
+    async callSetLangActions (event) {
       // this.$store.dispatch(SET_LANG, event.target.getAttribute('value'))
       console.log('lang1 => ', this.$lang);
       // this.$setLang(event.target.getAttribute('value'));
       this.$lang = event.target.getAttribute('value');
       console.log('lang2 => ', this.$lang);
+
+      let user = await this.$api.getUserDetail(1)
+      console.log('user [lang] => ', user);
     },
     showModal() {
       const params = {

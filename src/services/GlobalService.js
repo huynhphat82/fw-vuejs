@@ -10,6 +10,14 @@ import './commons/directives/index';
 import './commons/pipes/index';
 import '@validations/index';
 
+const showSpinner = () => ModalLoadSpinErrorPlugin.EventBus.$emit('show-spin');
+const hideSpinner = () => ModalLoadSpinErrorPlugin.EventBus.$emit('hide-spin');
+
+const withLoading = (callback = () => {}) => {
+  showSpinner();
+  callback(hideSpinner);
+};
+
 // Register components automatically
 const registerComponents = () => {
   // Get all components in components directory
@@ -58,4 +66,7 @@ const registerGlobal = () => {
 
 export {
   registerGlobal,
+  showSpinner,
+  hideSpinner,
+  withLoading,
 };

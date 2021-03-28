@@ -32,6 +32,12 @@ export default class Http {
     }
   }
 
+  /**
+   * Set configs
+   *
+   * @param json|object config
+   * @return Http
+   */
   setConfig = (config) => {
     if (typeof config === 'object') {
       this.options = { ...this.options, ...config };
@@ -39,6 +45,12 @@ export default class Http {
     return this;
   }
 
+  /**
+   * Set headers
+   *
+   * @param json|object headers
+   * @return Http
+   */
   setHeaders = (headers = {}) => {
     if (typeof headers === 'object') {
       this.headers = { ...this.headers, ...headers };
@@ -46,6 +58,11 @@ export default class Http {
     return this;
   }
 
+  /**
+   * Interceptors (middleware) between http request and response
+   *
+   * @return Http
+   */
   interceptors = (
     callbacksReq = [conf => conf, err => Promise.reject(err)],
     callbacksRes = [resp => resp, err => Promise.reject(err)]
@@ -60,7 +77,7 @@ export default class Http {
   }
 
   /**
-   * Request
+   * Http request
    *
    * @param string url
    * @param json|object configs  [{
@@ -71,25 +88,31 @@ export default class Http {
    * }]
    * @return json|object
    */
-  request = async (url, configs = {}) => {
+  request = async (configs = {}) => {
     try {
-      let responseResult = await this.instance.request(this._getConfig({ ...configs, url }));
-      return Response.success(responseResult.data, responseResult.status);
+      let responseResult = await this.instance.request(this._buildConfig(configs));
+      return Response.success(responseResult.data, responseResult.status, responseResult?.statusText);
     } catch (e) {
       return (e.response)
-              ? Response.error(e.response.data, e.response.status)
+              ? Response.error(e.response.data, e.response.status, e.response?.statusText)
               : Response.error(e.message, 442);
     }
   };
 
-  get    = (url, configs = {}) => this.request(url, { ...configs, method: 'GET' });
-  post   = (url, configs = {}) => this.request(url, { ...configs, method: 'POST' });
-  put    = (url, configs = {}) => this.request(url, { ...configs, method: 'PUT' });
-  patch  = (url, configs = {}) => this.request(url, { ...configs, method: 'PATCH' });
-  delete = (url, configs = {}) => this.request(url, { ...configs, method: 'DELETE' });
-  head   = (url, configs = {}) => this.request(url, { ...configs, method: 'HEAD' });
+  get    = (url, configs = {}) => this.request({ ...configs, url, method: 'GET' });
+  post   = (url, configs = {}) => this.request({ ...configs, url, method: 'POST' });
+  put    = (url, configs = {}) => this.request({ ...configs, url, method: 'PUT' });
+  patch  = (url, configs = {}) => this.request({ ...configs, url, method: 'PATCH' });
+  delete = (url, configs = {}) => this.request({ ...configs, url, method: 'DELETE' });
+  head   = (url, configs = {}) => this.request({ ...configs, url, method: 'HEAD' });
 
-  _getConfig = (configs = {}) => {
+  /**
+   * Build configs for http request
+   *
+   * @param json|object configs
+   * @return json|object
+   */
+  _buildConfig = (configs = {}) => {
     if (configs.hasOwnProperty('headers')) {
       configs.headers = { ...this.headers, ...configs.headers };
     }
@@ -102,6 +125,12 @@ export default class Http {
     return { ...this._defaultConfigs(configs), ...(this.options || {}) };
   }
 
+  /**
+   * Resovle options
+   *
+   * @param string|json|object options
+   * @return json|object
+   */
   _resolveOptions = (options) => {
     if (typeof options === 'object') {
       return options;
@@ -109,22 +138,38 @@ export default class Http {
     return (typeof options === 'string') ? { baseURL: options } : {};
   }
 
+  /**
+   * Filtering keys of options in allowed list
+   *
+   * @param json|object options
+   * @return json|object
+   */
   _filterOptions = (options) => {
     let headersAllowed = this._headersAllowed();
-    let _options = {};
-    for (let key in options) {
+    return Object.keys(options).reduce((carry, key) => {
       key = (key === 'baseUrl') ? 'baseURL' : key;
       if (headersAllowed.indexOf(key) !== false) {
-        _options[key] = options[key];
+        carry[key] = options[key];
       }
-    }
-    return _options;
+      return carry;
+    }, {});
   }
 
+  /**
+   * Header keys were allowed
+   *
+   * @return array
+   */
   _headersAllowed = () => ([
     'baseURL', 'baseUrl', 'timeout', 'withCredentials', 'auth', 'maxRedirects', 'responseType'
   ]);
 
+  /**
+   * Default configs for http request
+   *
+   * @param json|object configs
+   * @return json|object
+   */
   _defaultConfigs = (configs = {}) => ({
     // url for the request
     url: '',
