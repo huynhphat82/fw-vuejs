@@ -14,7 +14,6 @@ Http.setHeaders({
 
 Http.interceptors([
   config => {
-    // console.log('[Http][interceptors][req] => ', '[' + config?.method + ']', config?.url, config);
     Log.info('[Http][interceptors][req] => ', '[' + config?.method + ']', config?.url, config);
     if (config?.showSpinner === true) {
       showSpinner();

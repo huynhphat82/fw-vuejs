@@ -1,5 +1,6 @@
 
 const DEBUG_MODE = true;
+
 const Log = {};
 
 const log = (type, ...args) => {

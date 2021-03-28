@@ -1,8 +1,8 @@
+import Log from './Log';
 import { HTTP } from './commons';
 import { OK } from './commons/http/HTTP_CODE_STATUS';
 import { hideSpinner, showSpinner } from './GlobalService';
 import { API_URL_ANOTHER } from './../router/ENDPOINT_ANOTHER';
-import Log from './Log';
 
 const AnotherHttp = new HTTP(API_URL_ANOTHER);
 
