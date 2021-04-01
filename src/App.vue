@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <pace />
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/validation">Validation</router-link> |
@@ -7,7 +8,9 @@
     </div>
     <modal />
     <spinner />
-    <router-view />
+    <transition name="slide">
+      <router-view />
+    </transition>
   </div>
 </template>
 

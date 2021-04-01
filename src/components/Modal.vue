@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import { __ } from '~/services';
+
 export default {
   data() {
     return {
@@ -25,18 +27,18 @@ export default {
   methods: {
     hide() {
       this.visible = false;
-      if (typeof this.handleCancel === 'function') {
+      if (__.isFn(this.handleCancel)) {
         this.handleCancel();
       }
     },
     close() {
       this.visible = false;
-      if (typeof this.handleClose === 'function') {
+      if (__.isFn(this.handleClose)) {
         this.handleClose();
       }
     },
     confirm() {
-      if (typeof this.handleOk === 'function') {
+      if (__.isFn(this.handleOk)) {
         this.handleOk();
       }
       this.hide();
@@ -53,9 +55,7 @@ export default {
   },
   beforeMount() {
     // Register / listening 'show' event
-    this.$modal.EventBus.$on('show', params => {
-      this.show(params);
-    });
+    this.$modal.EventBus.$on('show', params => this.show(params));
   }
 };
 </script>

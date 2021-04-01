@@ -1,10 +1,12 @@
 import NotFound from '~/components/NotFound';
 import Product from '~/components/Product';
+import Profile from '~/components/Profile';
 import Signin from '~/components/Signin';
 import Signup from '~/components/Signup';
 import { auth, guest, subscribed } from '~/middlwares';
 import Home from '../views/Home.vue';
 import Validation from '../views/Validation.vue';
+import User from './../components/User';
 
 const routes = [
   {
@@ -45,6 +47,18 @@ const routes = [
         // guest
       ]
     }
+  },
+  {
+    path: '/user/:id',
+    name: 'user.detail',
+    component: User,
+    children: [
+      {
+        path: 'profile',
+        name: 'profile',
+        component: Profile,
+      }
+    ]
   },
   {
     path: '/validation',

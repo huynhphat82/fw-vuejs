@@ -1,2 +1,6 @@
 @import 'mixins/mixins';
 @import 'variables/variables';
+
+body {
+  margin: 0 8px 8px 8px !important;
+}

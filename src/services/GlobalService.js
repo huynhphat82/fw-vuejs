@@ -13,6 +13,10 @@ import '@validations/index';
 const showSpinner = () => ModalLoadSpinErrorPlugin.EventBus.$emit('show-spin');
 const hideSpinner = () => ModalLoadSpinErrorPlugin.EventBus.$emit('hide-spin');
 
+const showPace = () => ModalLoadSpinErrorPlugin.EventBus.$emit('show-pace');
+const hidePace = () => ModalLoadSpinErrorPlugin.EventBus.$emit('hide-pace');
+
+
 const withLoading = (callback = () => {}) => {
   showSpinner();
   callback(hideSpinner);
@@ -68,5 +72,7 @@ export {
   registerGlobal,
   showSpinner,
   hideSpinner,
+  showPace,
+  hidePace,
   withLoading,
 };

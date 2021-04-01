@@ -1,4 +1,4 @@
-import { Modal, Spinner, Loader, Error as AppError } from '../../../components';
+import { Modal, Spinner, Loader, Error as AppError, Pace } from '../../../components';
 
 export const ModalLoadSpinErrorPlugin = {
   install(Vue, options) {
@@ -9,6 +9,7 @@ export const ModalLoadSpinErrorPlugin = {
     Vue.component('modal', Modal);
     Vue.component('spinner', Spinner);
     Vue.component('loader', Loader);
+    Vue.component('pace', Pace);
     // Expose $modal object to every component
     Vue.prototype.$modal = {
       // dispatch 'show' event
@@ -30,7 +31,7 @@ export const ModalLoadSpinErrorPlugin = {
       EventBus: this.EventBus,
     };
     Vue.prototype.$loader = {
-      // dispatch 'spin' event
+      // dispatch 'loading' event
       show(params) {
         console.log('dispatch show-loading event');
         this.EventBus.$emit('show-loading', params);
@@ -38,6 +39,18 @@ export const ModalLoadSpinErrorPlugin = {
       hide() {
         console.log('dispatch hide-loading event');
         this.EventBus.$emit('hide-loading');
+      },
+      EventBus: this.EventBus,
+    };
+    Vue.prototype.$pace = {
+      // dispatch 'pacing' event
+      show() {
+        console.log('dispatch show-pace event');
+        this.EventBus.$emit('show-pace');
+      },
+      hide() {
+        console.log('dispatch hide-pace event');
+        this.EventBus.$emit('hide-pace');
       },
       EventBus: this.EventBus,
     };
