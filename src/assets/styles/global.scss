@@ -1,5 +1,10 @@
-@import 'mixins/mixins';
+// Define default variables
 @import 'variables/variables';
+@import 'mixins/mixins';
+
+// Then import Bootstrap an BootstrapVue SCSS files (order is important)
+@import 'node_modules/bootstrap/scss/bootstrap.scss';
+@import 'node_modules/bootstrap-vue/src/index.scss';
 
 body {
   margin: 0 8px 8px 8px !important;

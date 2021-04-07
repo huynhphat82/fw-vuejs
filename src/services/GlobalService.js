@@ -1,10 +1,15 @@
 import Vue from 'vue';
+import BootstrapVue from 'bootstrap-vue';
 import upperFirst from 'lodash/upperFirst';
 import camelCase from 'lodash/camelCase';
 import { ValidationObserver, ValidationProvider } from 'vee-validate';
 
 import { GlobalMixin, GlobalPlugin } from './commons';
 import { ModalLoadSpinErrorPlugin } from './commons/plugins';
+
+// Boostrap CSS
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-vue/dist/bootstrap-vue.min.css';
 
 import './commons/directives/index';
 import './commons/pipes/index';
@@ -58,6 +63,8 @@ const registerGlobal = () => {
    */
   Vue.component('validator', ValidationProvider);
   Vue.component('observer', ValidationObserver);
+
+  Vue.use(BootstrapVue);
 
   Vue.use(GlobalPlugin);
 

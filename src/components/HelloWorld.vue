@@ -32,6 +32,10 @@
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
     </ul>
 
+    <b-alert show dismissible> Hello Boostrap</b-alert>
+
+    <b-avatar badge badge-offset="bottom: null; right: null" variant="info"></b-avatar>
+
     <signup />
 
     <div>
