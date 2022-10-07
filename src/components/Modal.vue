@@ -1,6 +1,7 @@
 <template>
   <div v-if="visible">
     <div class="modal-wrapper">
+      <div class="modal-close" @click="close">X</div>
       <h2>{{ title }}</h2>
       <p>{{ message }}</p>
       <div class="modal-buttons">
@@ -13,6 +14,7 @@
 </template>
 
 <script>
+
 import { __ } from '~/services';
 
 export default {
@@ -58,9 +60,11 @@ export default {
     this.$modal.EventBus.$on('show', params => this.show(params));
   }
 };
+
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+
 .modal-wrapper {
   position: fixed;
   top: 50%;
@@ -96,4 +100,14 @@ export default {
   opacity: 0.6;
   z-index: 9999998;
 }
+
+.modal-close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  border: 1px solid black;
+  padding: 4px 6px;
+}
+
 </style>

@@ -8,6 +8,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'Error',
   props: {
@@ -29,8 +30,7 @@ export default {
     }
   },
 }
+
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

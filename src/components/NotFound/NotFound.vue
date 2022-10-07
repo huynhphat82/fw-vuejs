@@ -1,9 +1,9 @@
-
 <template>
   <div>Not Found</div>
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -14,6 +14,7 @@ export default {
 
   }
 }
+
 </script>
 
 <style lang="scss" scoped src="./style/index.scss"></style>

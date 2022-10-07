@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import routes from './routes';
-import store from '~/store';
 import vueRouteMiddleware from './VueRouteMiddleware';
 import { hidePace, showPace } from '~/services/GlobalService';
+import { ROUTE } from './ROUTE';
 
 Vue.use(VueRouter);
 
@@ -80,5 +80,9 @@ router.beforeResolve((to, from, next) => {
 router.afterEach((to, from) => {
   console.log('[router][afterEach] => ', from.path, from, to);
 });
+
+export {
+  ROUTE
+};
 
 export default router;

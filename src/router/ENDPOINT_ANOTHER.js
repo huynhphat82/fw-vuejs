@@ -1,4 +1,3 @@
-
 export const API_URL_ANOTHER = 'https://reqres.in/api';
 
 const ENDPOINT_ANOTHER = {

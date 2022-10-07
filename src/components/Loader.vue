@@ -6,6 +6,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -36,9 +37,11 @@ export default {
     });
   }
 };
+
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+
 .loader-wrap {
   margin: auto;
 }
@@ -101,4 +104,5 @@ export default {
     box-shadow: 0 2.5em 0 0;
   }
 }
+
 </style>

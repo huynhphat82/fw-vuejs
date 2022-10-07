@@ -6,7 +6,7 @@ import i18n from '../i18n';
 const methods = {};
 
 methods.globalHelper = function () {
-  alert('Hello world');
+  alert('This is global function.');
 };
 
 methods.__ = function (...args) {

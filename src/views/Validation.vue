@@ -84,6 +84,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'Home',
   components: {},
@@ -99,4 +100,5 @@ export default {
 
   }
 }
+
 </script>

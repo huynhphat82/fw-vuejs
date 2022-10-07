@@ -1,0 +1,34 @@
+<div>
+    <h1>This is Test page</h1>
+    <p>{{ test }}</p>
+
+    <div>
+        <p>
+          count:
+          <span>{{ count }}</span>
+        </p>
+        <p>
+          half:
+          <span>{{ half }}</span>
+        </p>
+        <button type="button" @click="increment">Increment</button>
+        <button type="button" @click="asyncIncrement">Async Increment</button>
+    </div>
+
+    <ul>
+        <li
+            v-for="product in products"
+            :key="product.id"
+        >
+            {{ product.title }} - {{ product.price }}
+            <br>
+            <!-- <button
+                :disabled="!product.inventory"
+                @click="addProductToCart(product)"
+            >Add to cart</button> -->
+        </li>
+    </ul>
+    <button @click="addProduct({
+        'id': 4, 'title': 'iPad 8 Mini', 'price': 600, 'inventory': 20
+    })">Add product</button>
+</div>

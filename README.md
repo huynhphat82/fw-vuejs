@@ -32,3 +32,42 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Modules
+```Register Components Automatically```
+
+```Pacing```
+
+```Validation | Rules```
+
+```Localization```
+
+```Modal```
+
+```Loader | Spiner```
+
+```Http```
+
+```Pipe```
+
+```Middlewares```
+
+```Guards```
+
+```Router```
+
+```Logger```
+
+```Modulation```
+
+```Alias Path```
+
+```Enviroment Variables```
+
+```Persistence```
+
+```State Management (Vuex)```
+
+```Navigation```
+
+```Tests (unit & e2e)```

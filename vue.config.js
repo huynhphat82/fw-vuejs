@@ -42,5 +42,6 @@ module.exports = {
       },
       extensions: ['.js', '.vue', '.json']
     }
-  }
+  },
+  transpileDependencies: ['vuex-persist'],
 };

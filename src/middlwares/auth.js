@@ -1,3 +1,4 @@
+import { ROUTE } from '~/router';
 
 /**
  * Check user whether he is authenticated
@@ -8,7 +9,7 @@
  */
 export default function auth({ next, store }) {
   if (!store.getters.auth.isLoggedIn) {
-    return next({ name: 'signin' });
+    return next({ name: ROUTE.SIGNIN });
   }
   return next();
 }

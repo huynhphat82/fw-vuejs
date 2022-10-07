@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <div>UserId: {{ $route.params.id }}</div>
@@ -8,6 +7,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -20,6 +20,7 @@ export default {
     }
   }
 }
+
 </script>
 
 <style lang="scss" scoped src="./style/index.scss"></style>

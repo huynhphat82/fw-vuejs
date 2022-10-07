@@ -3,6 +3,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -44,11 +45,14 @@ export default {
     });
   }
 };
+
 </script>
 
 <style lang="scss" scoped>
+
 .progressbar {
   height: 2px;
   background-color: $red;
 }
+
 </style>

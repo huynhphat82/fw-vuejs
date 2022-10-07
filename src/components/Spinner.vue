@@ -10,6 +10,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -48,9 +49,11 @@ export default {
     });
   }
 };
+
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+
 .v-spinner-wrapper {
   position: fixed;
   top: 50%;
@@ -134,4 +137,5 @@ export default {
   opacity: 1;
   z-index: 9999998;
 }
+
 </style>
